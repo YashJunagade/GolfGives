@@ -1,0 +1,151 @@
+.listError {
+  color: #f87171; font-size: 13px; margin-bottom: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+// ── Empty state ───────────────────────────────────────────────
+.empty {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.emptyIcon {
+  font-size: 32px;
+  margin-bottom: 10px;
+  opacity: 0.4;
+}
+
+.emptyText {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+}
+
+// ── Score row card ────────────────────────────────────────────
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(8px);
+}
+
+// ── Position badge ────────────────────────────────────────────
+.posDot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(245, 158, 11, 0.7);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+// ── Date ──────────────────────────────────────────────────────
+.date {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  flex: 1;
+}
+
+// ── Score chip (display mode) ─────────────────────────────────
+.scoreChip {
+  min-width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(245, 158, 11, 0.06));
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f59e0b;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+// ── Edit input ────────────────────────────────────────────────
+.editInput {
+  width: 70px;
+  padding: 5px 10px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(245, 158, 11, 0.5);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+}
+
+// ── Action buttons row ────────────────────────────────────────
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+// ── Shared button base ────────────────────────────────────────
+.btnBase {
+  padding: 6px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btnSave {
+  @extend .btnBase;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.btnCancel {
+  @extend .btnBase;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btnEdit {
+  @extend .btnBase;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+}
+
+.btnDelete {
+  @extend .btnBase;
+  padding: 6px 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  color: #f87171;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

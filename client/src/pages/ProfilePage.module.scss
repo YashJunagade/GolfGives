@@ -1,0 +1,85 @@
+.page { max-width: 640px; margin: 0 auto; }
+
+.header { margin-bottom: 32px; }
+.title { font-size: 28px; font-weight: 900; color: #ffffff; letter-spacing: -0.03em; line-height: 1; }
+.subtitle { color: rgba(255,255,255,0.4); font-size: 14px; margin-top: 8px; }
+
+.card {
+  padding: 24px 26px; border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(12px);
+  margin-bottom: 16px;
+}
+
+.cardLabel {
+  color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 16px;
+}
+
+/* Account info */
+.infoRow {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  &:last-child { border-bottom: none; }
+}
+.infoKey { color: rgba(255,255,255,0.4); font-size: 14px; }
+.infoVal { color: #ffffff; font-size: 14px; font-weight: 500; }
+
+/* Name / generic field row */
+.fieldRow { display: flex; gap: 10px; align-items: center; }
+
+.input {
+  flex: 1; padding: 11px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  color: #ffffff; font-size: 14px; outline: none;
+  &:focus { border-color: rgba(245,158,11,0.5); }
+}
+
+.saveBtn {
+  padding: 11px 22px; border-radius: 10px; border: none;
+  background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.35);
+  color: #f59e0b; font-size: 13px; font-weight: 700; cursor: pointer;
+  white-space: nowrap;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+/* Charity */
+.charityName  { color: #c084fc; font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+.charityMissing { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 14px; }
+.charityLink  { color: #f59e0b; }
+
+.pctDesc { color: rgba(255,255,255,0.4); font-size: 13px; margin-bottom: 16px; }
+
+.pctRow { display: flex; gap: 14px; align-items: flex-end; }
+.pctSliderWrap { flex: 1; }
+
+.slider {
+  width: 100%; accent-color: #f59e0b; cursor: pointer;
+  &::-webkit-slider-thumb { cursor: pointer; }
+}
+
+.pctLabels {
+  display: flex; justify-content: space-between; margin-top: 6px;
+  color: rgba(255,255,255,0.3); font-size: 12px;
+}
+.pctCurrent { color: #f59e0b; font-weight: 700; }
+
+/* Danger zone */
+.dangerDesc  { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 12px; }
+.manageLink  { color: #f59e0b; font-size: 14px; font-weight: 600; }
+
+/* Error */
+.errorMsg { color: #f87171; font-size: 13px; margin-top: 10px; }
+
+/* Spinner */
+.spinner {
+  width: 28px; height: 28px;
+  border: 2.5px solid #f59e0b; border-top-color: transparent;
+  border-radius: 50%; animation: spin 0.75s linear infinite;
+}
+.spinnerWrap { display: flex; align-items: center; justify-content: center; height: 200px; }
+
+@keyframes spin { to { transform: rotate(360deg); } }

@@ -1,0 +1,64 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #07070f;
+}
+
+.inner {
+  text-align: center;
+  max-width: 420px;
+  padding: 0 24px;
+}
+
+/* Icon circle — state toggled via .pending / .confirmed modifier classes */
+.iconRing {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  transition: background 0.4s, border-color 0.4s;
+
+  &.pending {
+    background: rgba(245, 158, 11, 0.15);
+    border: 2px solid rgba(245, 158, 11, 0.5);
+  }
+
+  &.confirmed {
+    background: rgba(16, 217, 122, 0.15);
+    border: 2px solid rgba(16, 217, 122, 0.5);
+  }
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid #f59e0b;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.heading {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.subtext {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.redirect {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 13px;
+  margin-top: 24px;
+}

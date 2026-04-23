@@ -1,0 +1,357 @@
+/* ─── Layout ──────────────────────────────────────────────────────────────── */
+
+.header { margin-bottom: 28px; }
+.title {
+  font-size: 24px; font-weight: 700; color: #ffffff; letter-spacing: -0.02em;
+}
+
+/* ─── Tab bar ─────────────────────────────────────────────────────────────── */
+
+.tabBar {
+  display: flex; gap: 4px; margin-bottom: 28px;
+  padding: 6px; border-radius: 14px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  width: fit-content;
+}
+
+.tabBtn {
+  padding: 8px 18px; border-radius: 10px;
+  font-size: 14px; font-weight: 500; cursor: pointer;
+  border: none; background: transparent;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.15s;
+}
+.tabBtnActive {
+  background: rgba(245,158,11,0.15);
+  color: #f59e0b;
+}
+
+/* ─── Shared card / panel ─────────────────────────────────────────────────── */
+
+.panel {
+  padding: 20px; border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.sectionLabel {
+  color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
+}
+
+/* ─── Form controls ───────────────────────────────────────────────────────── */
+
+.fieldGroup { display: flex; flex-direction: column; gap: 10px; }
+
+.fieldRow {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end;
+}
+
+.fieldLabel {
+  font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 4px;
+}
+
+.input {
+  padding: 9px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  color: #ffffff; font-size: 14px; outline: none;
+  width: 100%;
+  &:focus { border-color: rgba(245,158,11,0.45); }
+}
+
+.inputNarrow { @extend .input; width: 80px; }
+
+.select {
+  padding: 9px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  color: #ffffff; font-size: 14px; outline: none;
+}
+
+.checkboxLabel {
+  display: flex; align-items: center; gap: 8px;
+  color: rgba(255,255,255,0.6); font-size: 14px; cursor: pointer;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+
+.btnPrimary {
+  padding: 9px 20px; border-radius: 8px;
+  background: #f59e0b; border: none;
+  color: #07060a; font-weight: 600; font-size: 13px; cursor: pointer;
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+.btnPrimaryFit { @extend .btnPrimary; width: fit-content; }
+
+.btnSimulate {
+  padding: 7px 14px; border-radius: 8px;
+  background: rgba(129,140,248,0.15);
+  border: 1px solid rgba(129,140,248,0.3);
+  color: #818cf8; font-size: 13px; cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btnPublish {
+  padding: 7px 14px; border-radius: 8px;
+  background: rgba(52,211,153,0.15);
+  border: 1px solid rgba(52,211,153,0.3);
+  color: #34d399; font-size: 13px; cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btnApprove {
+  padding: 6px 12px; border-radius: 8px;
+  background: rgba(52,211,153,0.15);
+  border: 1px solid rgba(52,211,153,0.3);
+  color: #34d399; font-size: 13px; cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btnReject {
+  padding: 6px 12px; border-radius: 8px;
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #f87171; font-size: 13px; cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btnMarkPaid {
+  padding: 6px 12px; border-radius: 8px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  color: #f59e0b; font-size: 13px; cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+/* charity toggle buttons — color driven by CSS custom properties */
+.btnToggleCharity {
+  padding: 6px 14px; border-radius: 8px;
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--toggle-color);
+  font-size: 13px; cursor: pointer;
+}
+
+/* ─── Simulation result ───────────────────────────────────────────────────── */
+
+.simResult {
+  padding: 16px 20px; border-radius: 16px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.3);
+}
+.simResultTitle { color: #f59e0b; font-weight: 600; margin-bottom: 8px; }
+.simResultMeta  { color: rgba(255,255,255,0.6); font-size: 14px; }
+.simResultRow   { color: rgba(255,255,255,0.5); font-size: 13px; }
+
+/* ─── List / column containers ────────────────────────────────────────────── */
+
+.list { display: flex; flex-direction: column; gap: 20px; }
+.listCompact { display: flex; flex-direction: column; gap: 12px; }
+
+/* ─── Draw row card ───────────────────────────────────────────────────────── */
+
+.drawRow {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  gap: 12px; flex-wrap: wrap;
+}
+
+.drawName { color: #ffffff; font-weight: 600; font-size: 15px; }
+.drawType { margin-left: 8px; font-size: 12px; color: rgba(255,255,255,0.35); text-transform: capitalize; }
+.drawMeta { color: rgba(255,255,255,0.35); font-size: 13px; margin-top: 2px; text-transform: capitalize; }
+.drawActions { display: flex; gap: 8px; }
+
+/* ─── Winner submission card ─────────────────────────────────────────────── */
+
+.winnerCard {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.winnerCardInner {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+
+.winnerName { color: #ffffff; font-weight: 600; font-size: 15px; }
+.winnerEmail { color: rgba(255,255,255,0.35); font-weight: 400; font-size: 13px; }
+.winnerMeta { color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 2px; }
+.winnerProof { color: #f59e0b; font-size: 13px; }
+
+.winnerActions { display: flex; align-items: center; gap: 8px; }
+
+/* Status badge — color vars set inline */
+.statusBadge {
+  font-size: 12px; font-weight: 600;
+  color: var(--badge-color);
+  background: var(--badge-bg);
+  padding: 4px 10px; border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.paidLabel { color: #34d399; font-size: 13px; font-weight: 600; }
+
+/* ─── Charity list item ───────────────────────────────────────────────────── */
+
+.charityItem {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px; border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  opacity: var(--charity-opacity, 1);
+}
+
+.charityActions { display: flex; gap: 8px; align-items: center; }
+
+.charityName { color: #ffffff; font-weight: 500; font-size: 15px; }
+.charityFeatured { color: #f59e0b; font-size: 11px; }
+
+/* events toggle — same variable pattern as charity toggle */
+.btnEventsToggle {
+  padding: 6px 12px; border-radius: 8px;
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--toggle-color);
+  font-size: 12px; cursor: pointer;
+}
+
+/* events panel */
+.eventsPanel {
+  margin-top: -8px; padding: 18px 20px; border-radius: 0 0 12px 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07); border-top: none;
+}
+
+.evFormRow {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px;
+}
+
+.evItem {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  &:last-child { border-bottom: none; }
+}
+
+.evTitle { color: #ffffff; font-size: 14px; font-weight: 500; }
+.evMeta  { color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 2px; }
+.evEmpty { color: rgba(255,255,255,0.3); font-size: 13px; }
+
+.btnDanger {
+  padding: 5px 10px; border-radius: 7px; flex-shrink: 0;
+  background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);
+  color: #f87171; font-size: 12px; cursor: pointer;
+  &:hover { background: rgba(239,68,68,0.18); }
+}
+
+/* ─── Empty / loading states ──────────────────────────────────────────────── */
+
+.empty {
+  color: rgba(255,255,255,0.3); font-size: 14px;
+  text-align: center; padding: 32px 0;
+}
+
+.loading { color: rgba(255,255,255,0.3); font-size: 14px; }
+
+/* ─── Users page ──────────────────────────────────────────────────────────── */
+
+.usersHeader { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+.searchInput {
+  padding: 8px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  color: #ffffff; font-size: 13px; outline: none;
+  width: 260px;
+  &:focus { border-color: rgba(245,158,11,0.45); }
+}
+
+.userInfo { min-width: 0; }
+.nameEditRow { display: flex; align-items: center; gap: 6px; }
+.userName  { color: #ffffff; font-weight: 600; font-size: 15px; }
+.userEmail { color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 1px; }
+
+.userMeta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.userPlan { color: rgba(255,255,255,0.45); font-size: 12px; text-transform: capitalize; }
+.userJoined { color: rgba(255,255,255,0.3); font-size: 12px; }
+
+/* ─── User row expand wrapper ─────────────────────────────────────────────── */
+
+.userRowWrap {
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  overflow: hidden;
+}
+
+.userRow {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding: 14px 18px;
+}
+
+.userScoresPanel {
+  padding: 14px 18px 18px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.userScoresList { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+
+.userScoreRow {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+}
+
+.userScoreDate  { color: rgba(255,255,255,0.45); font-size: 13px; flex: 1; }
+.userScoreVal   { color: #f59e0b; font-weight: 700; font-size: 15px; min-width: 32px; }
+.userScoreError { color: #f87171; font-size: 12px; margin-bottom: 6px; }
+
+.userScoreInput {
+  width: 64px; padding: 4px 8px; border-radius: 7px;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(245,158,11,0.5);
+  color: #ffffff; font-size: 14px; font-weight: 700; text-align: center; outline: none;
+}
+
+/* ─── Analytics page ──────────────────────────────────────────────────────── */
+
+.statsGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;
+}
+
+.statTile {
+  padding: 22px 20px; border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 2px solid var(--stat-accent);
+}
+
+.statTileValue { color: #ffffff; font-size: 26px; font-weight: 800; letter-spacing: -0.03em; }
+.statTileLabel { color: rgba(255,255,255,0.45); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 6px; }
+.statTileSub   { color: rgba(255,255,255,0.3); font-size: 12px; margin-top: 4px; }
+
+/* ─── Draw stats table ────────────────────────────────────────────────────── */
+
+.drawStatsTable { display: flex; flex-direction: column; gap: 0; overflow-x: auto; }
+
+.drawStatsHeader {
+  display: grid; grid-template-columns: 80px 80px 90px 100px 70px 70px 70px 90px;
+  gap: 8px; padding: 8px 0 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+  color: rgba(255,255,255,0.35);
+}
+
+.drawStatsRow {
+  display: grid; grid-template-columns: 80px 80px 90px 100px 70px 70px 70px 90px;
+  gap: 8px; padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px; color: rgba(255,255,255,0.6); align-items: center;
+  &:last-child { border-bottom: none; }
+}
+
+.drawStatsPrimary { color: #ffffff; font-weight: 600; }

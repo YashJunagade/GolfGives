@@ -1,0 +1,208 @@
+/* ── Page shell ──────────────────────────────────────────── */
+.page { max-width: 960px; margin: 0 auto; }
+
+/* ── Header ──────────────────────────────────────────────── */
+.header { margin-bottom: 36px; }
+.headerRow {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.title {
+  font-size: 30px; font-weight: 900; color: #ffffff;
+  letter-spacing: -0.04em; line-height: 1.1;
+}
+.titleAccent {
+  background: linear-gradient(135deg, #f0c84a, #f59e0b);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: rgba(255,255,255,0.35); font-size: 14px; margin-top: 6px; }
+
+.subscribeBtn {
+  padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 700;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #07060a; text-decoration: none;
+  box-shadow: 0 4px 18px rgba(245,158,11,0.4);
+}
+
+/* ── Stat row ────────────────────────────────────────────── */
+.statGrid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 20px;
+}
+
+/* ── GlassCard ───────────────────────────────────────────── */
+.glassCard {
+  border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+.glassCardGold {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(255,255,255,0.03));
+  border-color: rgba(245,158,11,0.25);
+  box-shadow: 0 4px 32px rgba(245,158,11,0.06), 0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* ── StatCard ────────────────────────────────────────────── */
+.statCardInner { padding: 22px 24px; }
+.statCardTop {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;
+}
+.statLabel {
+  color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.statIcon { font-size: 18px; opacity: 0.6; }
+.statValue {
+  font-size: 26px; font-weight: 800;
+  color: var(--stat-color, #ffffff);
+  letter-spacing: -0.03em; line-height: 1;
+}
+.statSub { color: rgba(255,255,255,0.3); font-size: 12px; margin-top: 6px; }
+
+/* ── Main 2-col grid ─────────────────────────────────────── */
+.mainGrid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.widgetPad { padding: 26px; }
+
+/* ── Widget shared header ────────────────────────────────── */
+.widgetHead {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
+}
+.widgetLabel {
+  color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.widgetLink { color: #f59e0b; font-size: 12px; text-decoration: none; }
+
+/* ── Subscription widget ─────────────────────────────────── */
+.activePlanRow { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.activeDot { width: 8px; height: 8px; border-radius: 50%; background: #10d97a; }
+.activePlanName {
+  color: #10d97a; font-size: 18px; font-weight: 700; text-transform: capitalize;
+}
+.activeRenews { color: rgba(255,255,255,0.4); font-size: 13px; }
+
+.inactiveSub { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 16px; }
+.subscribeBtnInline {
+  display: inline-block; padding: 10px 22px; border-radius: 11px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #07060a; font-weight: 700; font-size: 13px; text-decoration: none;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.35);
+}
+
+/* ── Charity widget ──────────────────────────────────────── */
+.charityIcon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(248,113,113,0.12); border: 1.5px solid rgba(248,113,113,0.3);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+  font-size: 20px; color: #f87171;
+}
+.charityName { color: #ffffff; font-weight: 700; font-size: 16px; }
+.charityPct { color: #f59e0b; font-size: 13px; margin-top: 4px; }
+
+.noCharityText { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 14px; }
+.noCharityLink { color: #f59e0b; font-size: 13px; text-decoration: none; font-weight: 600; }
+
+/* ── Latest draw widget ──────────────────────────────────── */
+.drawMonth { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 14px; }
+.ballRow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.prizeLabel { color: rgba(255,255,255,0.3); font-size: 12px; }
+.prizeAmount { color: #f59e0b; font-weight: 700; }
+
+.noDrawWrap { text-align: center; padding: 12px 0; }
+.noDrawIcon { color: rgba(255,255,255,0.3); font-size: 24px; margin-bottom: 8px; }
+.noDrawText { color: rgba(255,255,255,0.35); font-size: 14px; }
+
+/* ── Ball sub-component ──────────────────────────────────── */
+.ball {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.06));
+  border: 1.5px solid rgba(245,158,11,0.4);
+  display: flex; align-items: center; justify-content: center;
+  color: #f59e0b; font-weight: 800; font-size: 13px;
+}
+
+/* ── Scores widget ───────────────────────────────────────── */
+.progressBar { display: flex; gap: 8px; margin-bottom: 18px; }
+.progressSlot {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.3s;
+}
+.progressSlotFilled {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+.scoreList { display: flex; flex-direction: column; gap: 8px; }
+.scoreRow {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.scoreDate { color: rgba(255,255,255,0.45); font-size: 13px; }
+.scoreValue { color: #f59e0b; font-weight: 800; font-size: 17px; }
+.scoreMore { color: rgba(255,255,255,0.25); font-size: 12px; margin-top: 4px; }
+
+.noScoresText { color: rgba(255,255,255,0.35); font-size: 14px; margin-bottom: 10px; }
+.noScoresLink { color: #f59e0b; font-size: 13px; text-decoration: none; font-weight: 600; }
+
+/* ── Upcoming draw widget ─────────────────────────────────── */
+.upcomingMonth {
+  color: #ffffff; font-size: 20px; font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: 16px;
+}
+.upcomingScoreBar {
+  height: 5px; border-radius: 4px; background: rgba(255,255,255,0.08);
+  overflow: hidden; margin-bottom: 10px;
+}
+.upcomingScoreFill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  transition: width 0.4s ease;
+}
+.upcomingScoreHint { color: rgba(255,255,255,0.4); font-size: 12px; }
+
+/* ── Winnings widget ──────────────────────────────────────── */
+.winList { display: flex; flex-direction: column; gap: 10px; }
+.winRow {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  &:last-child { border-bottom: none; }
+}
+.winLeft { display: flex; flex-direction: column; gap: 3px; }
+.winMatch { color: #ffffff; font-size: 14px; font-weight: 600; }
+.winDate  { color: rgba(255,255,255,0.35); font-size: 12px; }
+.winRight { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.winPrize { color: #f59e0b; font-size: 16px; font-weight: 800; }
+
+.statusPaid {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #34d399; background: rgba(52,211,153,0.12);
+  padding: 2px 8px; border-radius: 20px;
+}
+.statusPending {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fbbf24; background: rgba(251,191,36,0.12);
+  padding: 2px 8px; border-radius: 20px;
+}
+.statusNone {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06);
+  padding: 2px 8px; border-radius: 20px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .statGrid { grid-template-columns: repeat(2, 1fr); }
+  .mainGrid  { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .statGrid  { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .title     { font-size: 24px; }
+  .statCardInner { padding: 16px 18px; }
+  .statValue { font-size: 22px; }
+  .widgetPad { padding: 18px; }
+}
