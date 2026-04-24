@@ -49,9 +49,25 @@ Every month follows the same cycle:
 
 ### Signing Up
 
-1. Go to `/` — click **Get Started**
-2. Enter name, email, password → account created via Supabase Auth
-3. Redirected to `/subscribe` to choose a plan
+The signup page has a **Member / Admin** toggle at the top.
+
+**As a Member:**
+1. Go to `/signup` — select **Member**
+2. Enter name, email, password → account created
+3. Pick a charity (optional) → redirected to dashboard
+
+**As an Admin:**
+1. Go to `/signup` — select **Admin**
+2. Enter name, email, password
+3. Enter the **Admin Invite Code**: `GolfAdmin@2026`
+4. Account is created with admin role → redirected to `/admin`
+
+### Logging In
+
+The login page also has a **Member / Admin** toggle:
+
+- **Member** — logs in and goes to `/dashboard`
+- **Admin** — logs in and verifies the admin role. If the account is not admin, access is denied.
 
 ### Subscribing
 
