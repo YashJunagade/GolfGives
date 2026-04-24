@@ -12,12 +12,12 @@ const memberItems = [
   { to: '/charities', label: 'Charities',  icon: '♡' },
 ];
 const adminItems = [
-  { to: '/admin',               label: 'Overview',      icon: '◈' },
-  { to: '/admin?tab=draws',     label: 'Draws',         icon: '◎' },
-  { to: '/admin?tab=users',     label: 'Users',         icon: '◉' },
-  { to: '/admin?tab=winners',   label: 'Winners',       icon: '★' },
-  { to: '/admin?tab=charities', label: 'Charities',     icon: '♡' },
-  { to: '/admin?tab=analytics', label: 'Analytics',     icon: '▦' },
+  { to: '/admin/draws',         label: 'Draws',         icon: '◎' },
+  { to: '/admin/winners',       label: 'Winners',       icon: '★' },
+  { to: '/admin/charities',     label: 'Charities',     icon: '♡' },
+  { to: '/admin/users',         label: 'Users',         icon: '◉' },
+  { to: '/admin/subscriptions', label: 'Subscriptions', icon: '◈' },
+  { to: '/admin/analytics',     label: 'Analytics',     icon: '▦' },
 ];
 
 function NavItem({ item, isActive, onClick }) {
@@ -57,7 +57,7 @@ function Sidebar({ profile, onSignOut, onClose }) {
           <>
             <p className={styles.adminLabel}>Admin</p>
             {adminItems.map((item) => (
-              <NavItem key={item.to} item={item} isActive={location.pathname === item.to} onClick={onClose} />
+              <NavItem key={item.to} item={item} isActive={location.pathname.startsWith(item.to)} onClick={onClose} />
             ))}
           </>
         ) : (
