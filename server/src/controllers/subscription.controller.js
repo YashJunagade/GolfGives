@@ -63,6 +63,39 @@ export const cancelSubscription = async (req, res, next) => {
   }
 };
 
+export const verifySession = async (req, res, next) => {
+  try {
+    const { session_id } = req.query;
+    if (!session_id) return res.status(400).json({ error: 'session_id required.' });
+
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    if (session.payment_status !== 'paid') return res.json({ status: 'pending' });
+
+    // Upsert the subscription in case the webhook hasn't fired yet
+    const subId     = session.subscription;
+    const customerId = session.customer;
+    const stripeSub = await stripe.subscriptions.retrieve(subId);
+    const priceId   = stripeSub.items.data[0].price.id;
+    const plan      = PLANS[priceId] || 'monthly';
+    const periodEnd = stripeSub.current_period_end
+      ? new Date(stripeSub.current_period_end * 1000).toISOString()
+      : null;
+
+    await supabase.from('subscriptions').upsert({
+      user_id:                req.user.id,
+      plan,
+      status:                 'active',
+      stripe_customer_id:     customerId,
+      stripe_subscription_id: subId,
+      current_period_end:     periodEnd,
+    }, { onConflict: 'user_id' });
+
+    res.json({ status: 'active', plan });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getStatus = async (req, res, next) => {
   try {
     const { data, error } = await supabase

@@ -1,39 +1,59 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../../services/api.js';
 import styles from './SubscriptionSuccessPage.module.scss';
 
 export default function SubscriptionSuccessPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
-    let attempts = 0;
-    const MAX = 8;
     let timer;
+    const sessionId = searchParams.get('session_id');
 
-    const poll = async () => {
-      try {
-        const data = await api.get('/subscription/status');
-        if (data?.status === 'active') {
-          setConfirmed(true);
-          timer = setTimeout(() => navigate('/dashboard'), 1800);
-          return;
-        }
-      } catch { /* ignore auth errors during transition */ }
-
-      attempts++;
-      if (attempts < MAX) {
-        timer = setTimeout(poll, 1500);
-      } else {
-        navigate('/dashboard');
+    const confirm = async () => {
+      // First try direct session verification (doesn't depend on webhook timing)
+      if (sessionId) {
+        try {
+          const data = await api.get(`/subscription/verify?session_id=${sessionId}`);
+          if (data?.status === 'active') {
+            setConfirmed(true);
+            timer = setTimeout(() => navigate('/dashboard'), 1800);
+            return;
+          }
+        } catch { /* fall through to polling */ }
       }
+
+      // Fallback: poll status in case webhook already fired
+      let attempts = 0;
+      const MAX = 6;
+
+      const poll = async () => {
+        try {
+          const data = await api.get('/subscription/status');
+          if (data?.status === 'active') {
+            setConfirmed(true);
+            timer = setTimeout(() => navigate('/dashboard'), 1800);
+            return;
+          }
+        } catch { /* ignore */ }
+
+        attempts++;
+        if (attempts < MAX) {
+          timer = setTimeout(poll, 1500);
+        } else {
+          navigate('/dashboard');
+        }
+      };
+
+      timer = setTimeout(poll, 1000);
     };
 
-    timer = setTimeout(poll, 1200);
+    timer = setTimeout(confirm, 800);
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [navigate, searchParams]);
 
   return (
     <div className={styles.page}>
