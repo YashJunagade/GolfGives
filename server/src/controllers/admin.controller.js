@@ -60,7 +60,7 @@ export const getAnalytics = async (req, res, next) => {
     ] = await Promise.all([
       supabase.from('users').select('*', { count: 'exact', head: true }),
       supabase.from('subscriptions').select('status'),
-      supabase.from('prize_pools').select('total_pool, charity_contribution'),
+      supabase.from('prize_pools').select('total_pool'),
       supabase.from('charities').select('id'),
       supabase.from('draws').select(`
         id, month, year, status, draw_type,
@@ -73,7 +73,7 @@ export const getAnalytics = async (req, res, next) => {
 
     const activeSubs   = subs?.filter((s) => s.status === 'active').length ?? 0;
     const totalPool    = pools?.reduce((s, p) => s + Number(p.total_pool || 0), 0) ?? 0;
-    const totalCharity = pools?.reduce((s, p) => s + Number(p.charity_contribution || 0), 0) ?? 0;
+    const totalCharity = 0;
 
     const drawStats = (drawsData ?? []).map((d) => ({
       id:          d.id,

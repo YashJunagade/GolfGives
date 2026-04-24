@@ -30,6 +30,14 @@ export const sendWelcomeEmail = async (req, res, next) => {
   }
 };
 
+export const checkAdminCode = (req, res) => {
+  const { adminCode } = req.body;
+  if (!adminCode || adminCode !== process.env.ADMIN_INVITE_CODE) {
+    return res.status(403).json({ error: 'Invalid admin invite code.' });
+  }
+  res.json({ ok: true });
+};
+
 export const registerAdmin = async (req, res, next) => {
   try {
     const { adminCode } = req.body;

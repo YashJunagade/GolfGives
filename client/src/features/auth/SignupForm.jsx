@@ -33,6 +33,16 @@ export default function SignupForm() {
     setError('');
     setLoading(true);
 
+    // Validate admin code before creating any account
+    if (mode === 'admin') {
+      try {
+        await api.post('/auth/check-admin-code', { adminCode: form.adminCode });
+      } catch (err) {
+        setLoading(false);
+        return setError(err.error || 'Invalid admin invite code.');
+      }
+    }
+
     const { error: authError } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
@@ -44,15 +54,13 @@ export default function SignupForm() {
       return setError(authError.message);
     }
 
-    // If admin mode, verify the invite code
     if (mode === 'admin') {
       try {
         await api.post('/auth/register-admin', { adminCode: form.adminCode });
       } catch (err) {
-        // Invalid code — sign them out and show error
         await supabase.auth.signOut();
         setLoading(false);
-        return setError(err.error || 'Invalid admin invite code.');
+        return setError(err.error || 'Failed to assign admin role.');
       }
       setLoading(false);
       navigate('/admin');
