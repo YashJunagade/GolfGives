@@ -13,13 +13,14 @@ const COLORS = ['#f87171', '#fb7185', '#fb923c', '#a78bfa', '#10d97a', '#38bdf8'
 
 export default function SignupForm() {
   const navigate = useNavigate();
-  const [step,      setStep]      = useState(1);
-  const [form,      setForm]      = useState({ full_name: '', email: '', password: '' });
-  const [error,     setError]     = useState('');
-  const [loading,   setLoading]   = useState(false);
-  const [charities, setCharities] = useState([]);
-  const [selected,  setSelected]  = useState(null);
-  const [saving,    setSaving]    = useState(false);
+  const [mode,       setMode]       = useState('member'); // 'member' | 'admin'
+  const [step,       setStep]       = useState(1);
+  const [form,       setForm]       = useState({ full_name: '', email: '', password: '', adminCode: '' });
+  const [error,      setError]      = useState('');
+  const [loading,    setLoading]    = useState(false);
+  const [charities,  setCharities]  = useState([]);
+  const [selected,   setSelected]   = useState(null);
+  const [saving,     setSaving]     = useState(false);
 
   useEffect(() => {
     if (step === 2) getCharities().then(setCharities).catch(() => {});
@@ -31,14 +32,35 @@ export default function SignupForm() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+
+    const { error: authError } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
       options: { data: { full_name: form.full_name } },
     });
+
+    if (authError) {
+      setLoading(false);
+      return setError(authError.message);
+    }
+
+    // If admin mode, verify the invite code
+    if (mode === 'admin') {
+      try {
+        await api.post('/auth/register-admin', { adminCode: form.adminCode });
+      } catch (err) {
+        // Invalid code — sign them out and show error
+        await supabase.auth.signOut();
+        setLoading(false);
+        return setError(err.error || 'Invalid admin invite code.');
+      }
+      setLoading(false);
+      navigate('/admin');
+      return;
+    }
+
+    api.post('/auth/welcome').catch(() => {});
     setLoading(false);
-    if (error) return setError(error.message);
-    api.post('/auth/welcome').catch(() => {}); // non-blocking welcome email
     setStep(2);
   };
 
@@ -48,7 +70,7 @@ export default function SignupForm() {
     try {
       await selectCharity(id, 10);
     } catch {
-      // non-blocking — user can set charity later
+      // non-blocking
     } finally {
       setSaving(false);
     }
@@ -68,9 +90,46 @@ export default function SignupForm() {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.4, ease }}
         >
+          {/* Role toggle */}
+          <div className={styles.toggle}>
+            <button
+              type="button"
+              className={`${styles.toggleBtn} ${mode === 'member' ? styles.toggleActive : ''}`}
+              onClick={() => { setMode('member'); setError(''); }}
+            >
+              Member
+            </button>
+            <button
+              type="button"
+              className={`${styles.toggleBtn} ${mode === 'admin' ? styles.toggleActiveAdmin : ''}`}
+              onClick={() => { setMode('admin'); setError(''); }}
+            >
+              Admin
+            </button>
+          </div>
+
           <Input label="Full name" name="full_name" type="text" required autoComplete="name" value={form.full_name} onChange={handleChange} placeholder="John Smith" />
           <Input label="Email address" name="email" type="email" required autoComplete="email" value={form.email} onChange={handleChange} placeholder="john@example.com" />
           <Input label="Password" name="password" type="password" required minLength={6} autoComplete="new-password" value={form.password} onChange={handleChange} placeholder="Min. 6 characters" />
+
+          {mode === 'admin' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Input
+                label="Admin Invite Code"
+                name="adminCode"
+                type="password"
+                required
+                value={form.adminCode}
+                onChange={handleChange}
+                placeholder="Enter invite code"
+              />
+            </motion.div>
+          )}
 
           {error && (
             <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className={styles.errorBox}>
@@ -80,7 +139,7 @@ export default function SignupForm() {
           )}
 
           <Button type="submit" loading={loading} className={styles.submitButton}>
-            Create Account
+            {mode === 'admin' ? 'Create Admin Account' : 'Create Account'}
           </Button>
 
           <p className={styles.footer}>
@@ -126,11 +185,7 @@ export default function SignupForm() {
             })}
           </div>
 
-          <Button
-            type="button"
-            onClick={handleContinue}
-            className={styles.submitButton}
-          >
+          <Button type="button" onClick={handleContinue} className={styles.submitButton}>
             {selected ? 'Continue to Dashboard →' : 'Skip for now →'}
           </Button>
         </motion.div>

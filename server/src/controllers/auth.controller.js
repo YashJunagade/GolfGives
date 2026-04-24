@@ -30,6 +30,23 @@ export const sendWelcomeEmail = async (req, res, next) => {
   }
 };
 
+export const registerAdmin = async (req, res, next) => {
+  try {
+    const { adminCode } = req.body;
+    if (!adminCode || adminCode !== process.env.ADMIN_INVITE_CODE) {
+      return res.status(403).json({ error: 'Invalid admin invite code.' });
+    }
+    const { error } = await supabase
+      .from('users')
+      .update({ role: 'admin' })
+      .eq('id', req.user.id);
+    if (error) throw error;
+    res.json({ ok: true });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const updateProfile = async (req, res, next) => {
   try {
     const { full_name } = req.body;
