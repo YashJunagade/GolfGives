@@ -5,13 +5,20 @@ import supabase from '../../lib/supabaseClient.js';
 import useAuthStore from '../../store/authStore.js';
 import styles from './AppLayout.module.scss';
 
-const navItems = [
+const memberItems = [
   { to: '/dashboard', label: 'Dashboard', icon: '◈' },
   { to: '/scores',    label: 'My Scores',  icon: '◉' },
   { to: '/draws',     label: 'Draws',      icon: '◎' },
   { to: '/charities', label: 'Charities',  icon: '♡' },
 ];
-const adminItems = [{ to: '/admin', label: 'Admin Panel', icon: '⊞' }];
+const adminItems = [
+  { to: '/admin',               label: 'Overview',      icon: '◈' },
+  { to: '/admin?tab=draws',     label: 'Draws',         icon: '◎' },
+  { to: '/admin?tab=users',     label: 'Users',         icon: '◉' },
+  { to: '/admin?tab=winners',   label: 'Winners',       icon: '★' },
+  { to: '/admin?tab=charities', label: 'Charities',     icon: '♡' },
+  { to: '/admin?tab=analytics', label: 'Analytics',     icon: '▦' },
+];
 
 function NavItem({ item, isActive, onClick }) {
   return (
@@ -46,24 +53,24 @@ function Sidebar({ profile, onSignOut, onClose }) {
 
       {/* Nav */}
       <nav className={styles.nav}>
-        {navItems.map((item) => (
-          <NavItem key={item.to} item={item} isActive={location.pathname === item.to} onClick={onClose} />
-        ))}
-        {profile?.role === 'admin' && (
+        {profile?.role === 'admin' ? (
           <>
-            <div className={styles.adminDivider} />
             <p className={styles.adminLabel}>Admin</p>
             {adminItems.map((item) => (
               <NavItem key={item.to} item={item} isActive={location.pathname === item.to} onClick={onClose} />
             ))}
           </>
+        ) : (
+          memberItems.map((item) => (
+            <NavItem key={item.to} item={item} isActive={location.pathname === item.to} onClick={onClose} />
+          ))
         )}
       </nav>
 
       {/* User */}
       <div className={styles.userFooter}>
         <div className={styles.userCard}>
-          <Link to="/profile" onClick={onClose} className={styles.userCardLink}>
+          <Link to={profile?.role === 'admin' ? '/admin' : '/profile'} onClick={onClose} className={styles.userCardLink}>
             <div className={styles.userAvatar}>{initial}</div>
             <div className={styles.userInfo}>
               <p className={styles.userName}>{profile?.full_name || 'User'}</p>
