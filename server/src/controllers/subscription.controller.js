@@ -7,6 +7,13 @@ const PLANS = {
   [process.env.STRIPE_PRICE_YEARLY]:  'yearly',
 };
 
+// Stripe ≥2024-09-30 returns dates as ISO strings; older versions use Unix timestamps
+function toIso(val) {
+  if (!val) return null;
+  if (typeof val === 'string') return val;
+  return new Date(val * 1000).toISOString();
+}
+
 export const createCheckout = async (req, res, next) => {
   try {
     const { plan } = req.body;
@@ -46,8 +53,7 @@ export const cancelSubscription = async (req, res, next) => {
       cancel_at_period_end: true,
     });
 
-    const periodEndTs = updated.current_period_end ?? updated.cancel_at ?? null;
-    const periodEnd = periodEndTs ? new Date(periodEndTs * 1000).toISOString() : null;
+    const periodEnd = toIso(updated.current_period_end ?? updated.cancel_at);
 
     await supabase
       .from('subscriptions')
@@ -77,9 +83,7 @@ export const verifySession = async (req, res, next) => {
     const stripeSub = await stripe.subscriptions.retrieve(subId);
     const priceId   = stripeSub.items.data[0].price.id;
     const plan      = PLANS[priceId] || 'monthly';
-    const periodEnd = stripeSub.current_period_end
-      ? new Date(stripeSub.current_period_end * 1000).toISOString()
-      : null;
+    const periodEnd = toIso(stripeSub.current_period_end);
 
     await supabase.from('subscriptions').upsert({
       user_id:                req.user.id,
@@ -149,16 +153,13 @@ async function onCheckoutComplete(session) {
   const priceId   = stripeSub.items.data[0].price.id;
   const plan      = PLANS[priceId] || 'monthly';
 
-  const periodEndTs = stripeSub.current_period_end ?? stripeSub.cancel_at ?? null;
-  const periodEnd = periodEndTs;
-
   await supabase.from('subscriptions').upsert({
     user_id:                userId,
     plan,
     status:                 'active',
     stripe_customer_id:     customerId,
     stripe_subscription_id: subId,
-    current_period_end:     periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
+    current_period_end:     toIso(stripeSub.current_period_end ?? stripeSub.cancel_at),
   }, { onConflict: 'user_id' });
 
   const { data: user } = await supabase.from('users').select('email, full_name').eq('id', userId).single();
@@ -170,11 +171,8 @@ async function onSubscriptionUpdated(stripeSub) {
     ? 'cancelled'
     : stripeSub.status === 'active' ? 'active' : 'lapsed';
 
-  const periodEndTs = stripeSub.current_period_end ?? stripeSub.cancel_at ?? null;
-  const periodEnd = periodEndTs ? new Date(periodEndTs * 1000).toISOString() : null;
-
   await supabase.from('subscriptions')
-    .update({ status, current_period_end: periodEnd })
+    .update({ status, current_period_end: toIso(stripeSub.current_period_end ?? stripeSub.cancel_at) })
     .eq('stripe_subscription_id', stripeSub.id);
 
 }
