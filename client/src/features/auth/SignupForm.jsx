@@ -126,7 +126,7 @@ export default function SignupForm() {
                 required
                 value={form.adminCode}
                 onChange={handleChange}
-                placeholder="Enter invite code"
+                placeholder="GolfAdmin@2026"
               />
             </motion.div>
           )}
